@@ -19,7 +19,7 @@ from django.contrib.sessions.models import Session
 from django.views.decorators.cache import never_cache
 
 
-path_dir= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+path_dir= os.path.dirname(os.path.dirname(__file__))
 #FILE_NAME= r"\Files\\Customer Sentiments Data.xlsx"
 TODAY = str(date.today())
 
