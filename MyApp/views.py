@@ -243,6 +243,7 @@ def get_csat_details(mail_content):
 def get_resolution_details(short_description,problem_description):
     '''Method to get resolution comments'''
     print('resolution method')
+    user_logs("get_resolution_details",username,'resolution method','1')
     inclident_list = ["INC0003584607", "INC0003590897" , "INC0003611666"]
     
     df_basic = pd.DataFrame()
@@ -250,6 +251,8 @@ def get_resolution_details(short_description,problem_description):
     df_1 = pd.DataFrame()
     df_basic = pd.read_excel(path_dir+r"\Files\MANDATORY COMPLIANCE.xlsx",
                              sheet_name='Source Sheet')
+    user_logs("get_resolution_details",username,'df_basic','1')
+    
     for data in inclident_list:
         df_1=df_basic.loc[df_basic['Incident ID*+'] == data]
         df_2 = df_2.append(df_1)
@@ -260,9 +263,12 @@ def get_resolution_details(short_description,problem_description):
 
     df_2["date"]= TODAY
     df_2["title"]= title
+    user_logs("get_resolution_details",username,'df2','1')
     resolution_details = df_2.to_dict(orient='records')
     print('resolution method completed')
     print(resolution_details)
+    user_logs("get_resolution_details",username,'resolution_details','1')
+    user_logs("get_resolution_details",username,'resolution_details','1')
     return resolution_details
 
 api_view(["GET"])
