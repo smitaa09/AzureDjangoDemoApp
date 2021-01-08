@@ -19,7 +19,7 @@ from django.contrib.sessions.models import Session
 from django.views.decorators.cache import never_cache
 
 
-path_dir= os.path.dirname(os.path.dirname(__file__))
+path_dir= os.path.abspath(os.path.dirname(__file__))
 #FILE_NAME= r"\Files\\Customer Sentiments Data.xlsx"
 TODAY = str(date.today())
 
@@ -243,16 +243,12 @@ def get_csat_details(mail_content):
 def get_resolution_details(short_description,problem_description):
     '''Method to get resolution comments'''
     print('resolution method')
-    user_logs("get_resolution_details",'one','resolution method','1')
     inclident_list = ["INC0003584607", "INC0003590897" , "INC0003611666"]
-    user_logs("get_resolution_details",'five','resolution method','1')
     df_basic = pd.DataFrame()
-    user_logs("get_resolution_details",'six','resolution method','1')
     df_2 = pd.DataFrame()
-    user_logs("get_resolution_details",'seven','resolution method','1')
     df_1 = pd.DataFrame()
     user_logs("get_resolution_details",'eight','resolution method','1')
-    user_logs("get_resolution_details",'updatenine','resolution method','1')
+    user_logs("get_resolution_details",'updatenew','resolution method','1')
     user_logs(path_dir,'nine now','resolution method','1')
     
     df_basic = pd.read_excel(r'/Files/MANDATORY COMPLIANCE.xlsx',
