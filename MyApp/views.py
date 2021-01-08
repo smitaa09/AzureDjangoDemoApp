@@ -66,20 +66,13 @@ def get_supportfocal_six_month_details(request):
         return JsonResponse(text_details,safe=False)
     user_logs("get_supportfocal_six_month_details Started",username,'Support focal Details','1')
     customer_name=request.GET.get('supportengineer')
-    print("get_supportfocal_six_month_details- customer_name")
-    print(customer_name)
     access_db= AccessDatabase()
     cursor= access_db.database_connection_string(access_db.sp_get_supportfocal_six_month,customer_name)
     df_support_focal_six_month_list=[]
     columns=[column[0] for column in cursor.description]
-    print("get_supportfocal_six_month_details- columns")
-    print(columns)
     for rows in cursor.fetchall():
         df_support_focal_six_month_list.append({name:rows[i] for i, name in enumerate(columns)})
-        print("get_supportfocal_six_month_details- forloop")
     user_logs("get_supportfocal_six_month_details Completed",username,'Support focal Details','0')
-    print("get_supportfocal_six_month_details- forloop")
-    print(df_support_focal_six_month_list)
     return JsonResponse(df_support_focal_six_month_list,safe=False)
 
 api_view(["POST"]) 
@@ -110,8 +103,6 @@ def get_customer_six_month_details(request):
         return JsonResponse(text_details,safe=False)
     user_logs("get_supportfocal_six_month_details Started",username,'customer Details','1')
     customer_name=json.loads(request.body)
-    print("get_customer_six_month_details- customer_name")
-    print(customer_name)
     access_db= AccessDatabase()
     cursor= access_db.database_connection_string(access_db.sp_get_customer_sentiment_six_month,customer_name)
     df_customer_six_month_list=[]
@@ -119,17 +110,30 @@ def get_customer_six_month_details(request):
     for rows in cursor.fetchall():
         df_customer_six_month_list.append({name:rows[i] for i, name in enumerate(columns)})
     if df_customer_six_month_list is not None:
-        print("get_customer_six_month_details- df_customer_six_month_list")
-        print(df_customer_six_month_list)
         return JsonResponse(df_customer_six_month_list,safe=False)
     else:
         return JsonResponse(False,safe=False)
 
+def get_six_month_data_sample():
+    '''Method to get Sentiment Details'''
+
+    customer_name='Adam Epps'
+    
+    print('six month data')
+    access_db= AccessDatabase()
+    cursor= connection.cursor()
+    cursor.execute("exec " + sp_name)
+    cursor= access_db.database_connection_string(access_db.sp_get_customer_sentiment_six_month,customer_name)    
+    ci_names = cursor.fetchall()
+    print(f'cinames {ci_names}')
+    for rows in ci_names:
+        print("data:",rows[0])
+    
+    cursor.close()
+    user_logs("Classify email content details Completed",username,'customer Details','0')
     
 def get_customer_sentiment_details(customer_name):
     access_db= AccessDatabase()
-    print("get_customer_sentiment_details- customer_name")
-    print(customer_name)
     cursor= access_db.database_connection_string(access_db.sp_get_customer_sentiment,customer_name)
     data1=cursor.fetchall()
     df_customer_rating_list=[]
@@ -144,21 +148,15 @@ def get_customer_sentiment_details(customer_name):
         df_customer_category_list.append({name:rows[i] for i, name in enumerate(columns)})
              
     df_customer_category_list= {'categoryGraph':df_customer_category_list}
-    print("get_customer_sentiment_details- df_customer_category_list")
-    print(df_customer_category_list)
     df_customer_rating_list.update(df_customer_category_list)
     customer_details = {"customersentiments": df_customer_rating_list}
-    print("get_customer_sentiment_details- customer_details")
-    print(customer_details)
     return customer_details
 
 def get_support_focal_details(support_focal_name):
     '''Calling Method to get support focal names and logged in support focal details'''
     access_db= AccessDatabase()
-    print("get_support_focal_details- support_focal_name")
-    print(support_focal_name)
     cursor= access_db.database_connection_string(access_db.sp_get_focal_sentiment,support_focal_name)
-    
+
     
     df_list1=[]
     columns=[column[0] for column in cursor.description]
@@ -199,8 +197,6 @@ def get_support_focal_details(support_focal_name):
         df_new = df_new.append({'region':i,'count':[{'month':df5['DateMY'][j],'count':df5['regionCount'][j]} for j in df5[df5['region']==i].index]}, ignore_index=True)
     df_new= df_new.to_dict(orient='records')
     support_focal_details = {  "firstGraphDetails": df_list1 , "secondGraphDetails" :  df_list2, "thirdGraphDetails" : df_list3, "fourthGraphDetails":df_list4 ,"fifthGraphDetails":df_new}
-    print("get_support_focal_details- support_focal_details")
-    print(support_focal_details)
     return support_focal_details
 
 
@@ -300,10 +296,12 @@ def login(request):
         app_name  = req.get('username')
         app_pwd  = req.get('password')
         try:
+            print('inside try method')
             user=auth.authenticate(username=app_name,password=app_pwd)
-            #request.session.set_expiry(300)
+            print(user)
         except Exception as e:
             if e and len(e.args) > 0:
+                print(f'exception {e}')
                 user_logs("User logged in Failed",app_name,'login','0')
         if user is not None:
             username=request.session.get('username')
