@@ -252,6 +252,7 @@ def get_resolution_details(short_description,problem_description):
     user_logs("get_resolution_details",'seven','resolution method','1')
     df_1 = pd.DataFrame()
     user_logs("get_resolution_details",'eight','resolution method','1')
+    user_logs("get_resolution_details",'updatenine','resolution method','1')
     user_logs(path_dir,'nine_new','resolution method','1')
     
     df_basic = pd.read_excel("/Files/MANDATORY COMPLIANCE.xlsx",
