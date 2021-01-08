@@ -59,7 +59,7 @@ api_view(["GET"])
 @never_cache
 def get_supportfocal_six_month_details(request):       
     '''API to get support focal six months details'''
-    if request.session.get('username') is None:
+    if request.session.get('username') is not None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -87,7 +87,7 @@ api_view(["POST"])
 @never_cache
 def get_sentiment_details(request):
     '''Method to get Sentiment Details'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -103,7 +103,7 @@ api_view(["POST"])
 @never_cache
 def get_customer_six_month_details(request):        
     '''API to get support focal six months details'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -271,7 +271,7 @@ api_view(["GET"])
 @never_cache
 def get_selected_support_focal_details(request):
     '''API to get Selected support focal details'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -321,7 +321,7 @@ api_view(["POST"])
 @never_cache
 def sentiment_details(request):
     '''Api for Sentiment Details'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -342,7 +342,7 @@ api_view(["POST"])
 @never_cache
 def customer_details(request):
     '''Api for Customer Details'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -361,7 +361,7 @@ def get_ci_names(request):
     '''Api for Email Content'''
     print('ci_names')
     print(request.session.get('username'))
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -382,7 +382,7 @@ api_view(["POST"])
 @never_cache
 def save_aion_feedback(request):
     '''Api to Save Feedback'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
         user_logs("Saving AIONFeedback Started",username,'aion-user-feedback','1')
         feedback_parameters = json.loads(request.body)
@@ -412,7 +412,7 @@ api_view(["POST"])
 def save_feedback(request):
     '''Api to Save Feedback'''
     print(request.session.get('username'))
-    if request.session.get('username') is   None:        
+    if request.session.get('username') is not   None:        
         username=request.session.get('username')
         user_logs("Saving Resolution Started",username,'recommendation-feedback','1')
         feedback_parameters = json.loads(request.body)
@@ -445,7 +445,7 @@ api_view(["POST"])
 @never_cache
 def save_suggestions(request):
     '''Api to Save Suggestions'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
         user_logs("Saving Suggestions Started",username,'aion-suggestions','1')
         feedback_parameters = json.loads(request.body)
@@ -471,7 +471,7 @@ api_view(["POST"])
 @never_cache
 def save_content(request):
     '''Api to Save Content'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
         user_logs("Saving Content Started",username,'aion-content','1')
         feedback_parameters = json.loads(request.body)
@@ -498,7 +498,7 @@ api_view(["POST"])
 @never_cache
 def save_training(request):
     '''Api to Save Training Data'''
-    if request.session.get('username') is   None:
+    if request.session.get('username') is not   None:
         username=request.session.get('username')
         user_logs("Saving Training Started",username,'aion-training','1')
         feedback_parameters = json.loads(request.body)
