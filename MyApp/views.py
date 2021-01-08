@@ -114,23 +114,7 @@ def get_customer_six_month_details(request):
     else:
         return JsonResponse(False,safe=False)
 
-def get_six_month_data_sample():
-    '''Method to get Sentiment Details'''
 
-    customer_name='Adam Epps'
-    
-    print('six month data')
-    access_db= AccessDatabase()
-    cursor= connection.cursor()
-    cursor.execute("exec " + sp_name)
-    cursor= access_db.database_connection_string(access_db.sp_get_customer_sentiment_six_month,customer_name)    
-    ci_names = cursor.fetchall()
-    print(f'cinames {ci_names}')
-    for rows in ci_names:
-        print("data:",rows[0])
-    
-    cursor.close()
-    user_logs("Classify email content details Completed",username,'customer Details','0')
     
 def get_customer_sentiment_details(customer_name):
     access_db= AccessDatabase()
@@ -215,7 +199,6 @@ def user_logs(message,username,page_event,flag):
     try:  
         cursor.execute("exec " + access_db.sp_save_userLogs + " '" + message + "','" + username+ "','" + page_event + "','" + flag + "'" )
         #string= '"exec " + access_db.sp_save_userLogs '+ "'"  message + "','" + username + "','" + page_event + "','" + str(flag) + "'" '
-        #print(string)
         #cursor.execute("exec " + access_db.sp_save_userLogs + "'" + message + "','" + username + "','" + page_event + "','" + str(flag) + "'" )
         cursor.close()
     except:
@@ -242,20 +225,14 @@ def get_csat_details(mail_content):
 
 def get_resolution_details(short_description,problem_description):
     '''Method to get resolution comments'''
-    print('resolution method')
     inclident_list = ["INC0003584607", "INC0003590897" , "INC0003611666"]
     df_basic = pd.DataFrame()
     df_2 = pd.DataFrame()
     df_1 = pd.DataFrame()
-    user_logs("get_resolution_details",'eightnew','resolution method','1')
-    user_logs("get_resolution_details",'updatenew','resolution method','1')
-    user_logs(path_dir,'nine now','resolution method','1')
     path = path_dir + '/Files/MANDATORY COMPLIANCE.xlsx'
     user_logs(path,'path','resolution method','1')
     df_basic = pd.read_excel(path_dir + r'/Files/MANDATORY COMPLIANCE.xlsx',
                              sheet_name='Source Sheet')
-    user_logs(df_basic,'eight','resolution method','1')
-    user_logs("get_resolution_details",'two','df_basic','1')
     
     for data in inclident_list:
         df_1=df_basic.loc[df_basic['Incident ID*+'] == data]
@@ -269,9 +246,6 @@ def get_resolution_details(short_description,problem_description):
     df_2["title"]= title
     user_logs("get_resolution_details",'three','df2','1')
     resolution_details = df_2.to_dict(orient='records')
-    print('resolution method completed')
-    print(resolution_details)
-    user_logs("get_resolution_details",'four','resolution_details','1')
     return resolution_details
 
 api_view(["GET"])
@@ -289,7 +263,6 @@ def get_selected_support_focal_details(request):
     df_main = pd.DataFrame()
     cursor= connection.cursor()
     support_focal_details = get_support_focal_details(support_focal_name)
-    print(support_focal_details)
     if not support_focal_details:        
         text_details = support_focal_details.to_dict(orient='records')
         return JsonResponse(support_focal_details,safe=False)
@@ -308,12 +281,9 @@ def login(request):
         app_name  = req.get('username')
         app_pwd  = req.get('password')
         try:
-            print('inside try method')
             user=auth.authenticate(username=app_name,password=app_pwd)
-            print(user)
         except Exception as e:
             if e and len(e.args) > 0:
-                print(f'exception {e}')
                 user_logs("User logged in Failed",app_name,'login','0')
         if user is not None:
             username=request.session.get('username')
@@ -331,7 +301,6 @@ api_view(["POST"])
 @never_cache
 def sentiment_details(request):
     '''Api for Sentiment Details'''
-    print('sentiment_details')
     if request.session.get('username') is not None:
         username=request.session.get('username')
     else:
@@ -343,11 +312,9 @@ def sentiment_details(request):
     short_description = req.get('shortDescription')
     problem_description = req.get('problemDescription')
     user_logs("Retrived customer details succesfully",username,'ticketInsights','0')
-    print('calling resolution method')
     user_logs("retrieving resolution details started",username,'ticketInsights','0')
     user_logs(short_description,username,'ticketInsights','0')
     resolution = get_resolution_details(short_description,problem_description)
-    print('calling resolution method completed')
     user_logs("Retrived resolution details succesfully",username,'ticketInsights','0')
     sentiment_details_data = {"resRecommendations":resolution}
     return JsonResponse(sentiment_details_data,safe=False)
@@ -374,8 +341,6 @@ api_view(["GET"])
 @never_cache
 def get_ci_names(request):
     '''Api for Email Content'''
-    print('ci_names')
-    print(request.session.get('username'))
     if request.session.get('username') is not   None:
         username=request.session.get('username')
     else:
@@ -426,7 +391,6 @@ api_view(["POST"])
 @never_cache
 def save_feedback(request):
     '''Api to Save Feedback'''
-    print(request.session.get('username'))
     if request.session.get('username') is not   None:        
         username=request.session.get('username')
         user_logs("Saving Resolution Started",username,'recommendation-feedback','1')
