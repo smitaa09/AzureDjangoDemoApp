@@ -102,7 +102,7 @@ DATABASES = {
         'HOST':config('HOST'),
         'NAME':config('NAME'),
         'USER':config('USER'),
-        'PASSWORD':crypt.decrypt(config("DB_PWD")),
+        'PASSWORD':'Tcsmfg@1234#',
         'PORT':'1433',
         'OPTIONS': {            
             'driver': 'ODBC Driver 17 for SQL Server',
