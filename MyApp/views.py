@@ -252,9 +252,9 @@ def get_resolution_details(short_description,problem_description):
     user_logs("get_resolution_details",'seven','resolution method','1')
     df_1 = pd.DataFrame()
     user_logs("get_resolution_details",'eight','resolution method','1')
-    user_logs(path_dir,'nine','resolution method','1')
+    user_logs(path_dir,'nine_new','resolution method','1')
     
-    df_basic = pd.read_excel(r"\Files\MANDATORY COMPLIANCE.xlsx",
+    df_basic = pd.read_excel("/Files/MANDATORY COMPLIANCE.xlsx",
                              sheet_name='Source Sheet')
     user_logs(df_basic,'eight','resolution method','1')
     user_logs("get_resolution_details",'two','df_basic','1')
