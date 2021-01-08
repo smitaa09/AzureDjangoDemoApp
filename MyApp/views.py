@@ -242,6 +242,7 @@ def get_csat_details(mail_content):
 
 def get_resolution_details(short_description,problem_description):
     '''Method to get resolution comments'''
+    print('resolution method')
     inclident_list = ["INC0003584607", "INC0003590897" , "INC0003611666"]
     
     df_basic = pd.DataFrame()
@@ -260,6 +261,8 @@ def get_resolution_details(short_description,problem_description):
     df_2["date"]= TODAY
     df_2["title"]= title
     resolution_details = df_2.to_dict(orient='records')
+    print('resolution method completed')
+    print(resolution_details)
     return resolution_details
 
 api_view(["GET"])
@@ -319,7 +322,8 @@ api_view(["POST"])
 @never_cache
 def sentiment_details(request):
     '''Api for Sentiment Details'''
-    if request.session.get('username') is not   None:
+    print('sentiment_details')
+    if request.session.get('username') is not None:
         username=request.session.get('username')
     else:
         text_details = {"responseMessage": "Session expired"}
@@ -330,7 +334,9 @@ def sentiment_details(request):
     short_description = req.get('shortDescription')
     problem_description = req.get('problemDescription')
     user_logs("Retrived customer details succesfully",username,'ticketInsights','0')
+    print('calling resolution method')
     resolution = get_resolution_details(short_description,problem_description)
+    print('calling resolution method completed')
     user_logs("Retrived resolution details succesfully",username,'ticketInsights','0')
     sentiment_details_data = {"resRecommendations":resolution}
     return JsonResponse(sentiment_details_data,safe=False)
