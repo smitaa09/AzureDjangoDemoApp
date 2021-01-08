@@ -19,7 +19,7 @@ from django.contrib.sessions.models import Session
 from django.views.decorators.cache import never_cache
 
 
-path_dir= os.path.dirname(os.path.realpath(__file__))
+path_dir= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #FILE_NAME= r"\Files\\Customer Sentiments Data.xlsx"
 TODAY = str(date.today())
 
@@ -243,15 +243,18 @@ def get_csat_details(mail_content):
 def get_resolution_details(short_description,problem_description):
     '''Method to get resolution comments'''
     print('resolution method')
-    user_logs("get_resolution_details",'','resolution method','1')
+    user_logs("get_resolution_details",'one','resolution method','1')
     inclident_list = ["INC0003584607", "INC0003590897" , "INC0003611666"]
-    
+    user_logs("get_resolution_details",'five','resolution method','1')
     df_basic = pd.DataFrame()
+    user_logs("get_resolution_details",'six','resolution method','1')
     df_2 = pd.DataFrame()
+    user_logs("get_resolution_details",'seven','resolution method','1')
     df_1 = pd.DataFrame()
+    user_logs("get_resolution_details",'eight','resolution method','1')
     df_basic = pd.read_excel(path_dir+r"\Files\MANDATORY COMPLIANCE.xlsx",
                              sheet_name='Source Sheet')
-    user_logs("get_resolution_details",'','df_basic','1')
+    user_logs("get_resolution_details",'two','df_basic','1')
     
     for data in inclident_list:
         df_1=df_basic.loc[df_basic['Incident ID*+'] == data]
@@ -263,11 +266,11 @@ def get_resolution_details(short_description,problem_description):
 
     df_2["date"]= TODAY
     df_2["title"]= title
-    user_logs("get_resolution_details",'','df2','1')
+    user_logs("get_resolution_details",'three','df2','1')
     resolution_details = df_2.to_dict(orient='records')
     print('resolution method completed')
     print(resolution_details)
-    user_logs("get_resolution_details",'','resolution_details','1')
+    user_logs("get_resolution_details",'four','resolution_details','1')
     return resolution_details
 
 api_view(["GET"])
