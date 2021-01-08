@@ -250,7 +250,8 @@ def get_resolution_details(short_description,problem_description):
     user_logs("get_resolution_details",'eightnew','resolution method','1')
     user_logs("get_resolution_details",'updatenew','resolution method','1')
     user_logs(path_dir,'nine now','resolution method','1')
-    
+    path = path_dir + '/Files/MANDATORY COMPLIANCE.xlsx'
+    user_logs(path,'path','resolution method','1')
     df_basic = pd.read_excel(path_dir + r'/Files/MANDATORY COMPLIANCE.xlsx',
                              sheet_name='Source Sheet')
     user_logs(df_basic,'eight','resolution method','1')
