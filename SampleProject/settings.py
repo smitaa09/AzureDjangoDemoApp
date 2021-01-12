@@ -110,14 +110,14 @@ WSGI_APPLICATION = 'SampleProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_pyodbc',
+        'ENGINE': 'sql_server.pyodbc',
         'HOST':config('HOST'),
         'NAME':config('NAME'),
         'USER':'labsqladmin',
         'PASSWORD':'Tcsmfg@1234#',
         'PORT':config('PORT'),
         'OPTIONS': {            
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'ODBC Driver 13 for SQL Server',
             'MARS_Connection': 'True',
             }
     }
