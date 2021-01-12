@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import socket
 from decouple import config
-from encryption import *
+from SampleProject.encryption import *
 #from azure.keyvault.secrets import SecretClient
 #from azure.identity import DefaultAzureCredential
 
