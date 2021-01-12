@@ -14,11 +14,24 @@ import os
 import socket
 from decouple import config
 from SampleProject.encryption import *
+#from azure.keyvault.secrets import SecretClient
+#from azure.identity import DefaultAzureCredential
+
+#retrieving Secret
+#SECRET_KEY = client.get_secret(secretName)
+#USER = client.get_secret(USER)
+#DB_PWD = client.get_secret(DB_PWD)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-crypt= CryptKey()
-SECRET_KEY = crypt.decrypt_key(config('SECRET_KEY')) 
+
+SECRET_KEY = "&dfw0b_0r^swa80@x^_9eq=p+%vr&-*9&q_(_o1$uqlbsvcbyj"
+DB_PWD= b'JidpljAPURzAk/4UkR3eoOjCLbkbwe5Rpuhufp+Rewg='
+USER=  b'JGQ1Ni2/cFxalBkJKdwlpQye8gK/+qYtRUoCjqL599A='
+
+crypt= CryptKey(SECRET_KEY)
+DB_PWD= crypt.decrypt(DB_PWD)
+USER= crypt.decrypt(USER)
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 SESSION_COOKIE_AGE= 100
@@ -69,7 +82,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'SampleProject.urls'
 
 PASSWORD_HASHERS = (
-    #'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     
 )
@@ -99,13 +111,13 @@ WSGI_APPLICATION = 'SampleProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'HOST':'labsqlserver.database.windows.net',
+        'HOST':config('HOST'),
         'NAME':config('NAME'),
-        'USER':config('USER'),
-        'PASSWORD':'Tcsmfg@1234#',
-        'PORT':'1433',
+        'USER':'labsqladmin',
+        'PASSWORD':DB_PWD,
+        'PORT':config('PORT'),
         'OPTIONS': {            
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'SQL Server Native Client 11.0',
             'MARS_Connection': 'True',
             }
     }

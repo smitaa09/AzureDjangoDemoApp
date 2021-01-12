@@ -1,42 +1,27 @@
-from cryptography.fernet import Fernet
 import base64
+import hashlib
+from Crypto import Random
+from Crypto.Cipher import AES
 
 class CryptKey():
-    key = b'RkraUiiGcz3TaZx38QbZl4IlwHldPpMVi-ToENyiaRk='
-    #credential = DefaultAzureCredential()
-    #client = SecretClient(vault_url='', credential=credential
-    #key= client.get_secret("secret_key")
-	
-    def encrypt_key(self):
-        # get the key from settings
-        #key = Fernet.generate_key() #this is your "password"
-        cipher_suite = Fernet(self.key) # key should be byte
-        # #input should be byte, so convert the text to byte
-        encrypted_text = cipher_suite.encrypt(txt.encode('ascii'))
-        # encode to urlsafe base64 format
-        self.encrypted_key = base64.urlsafe_b64encode(encrypted_text).decode("ascii")
-        return self.encrypted_key 
 
-    def decrypt_key(self,encrypted_text):
-        txt = base64.urlsafe_b64decode(encrypted_text)
-        cipher_suite = Fernet(self.key)
-        decoded_text = cipher_suite.decrypt(txt).decode("ascii")
-        return decoded_text
-
-    def encrypt_db(self):
-        # get the key from settings
-        #key = Fernet.generate_key() #this is your "password"
-        cipher_suite = Fernet(self.key) # key should be byte
-        # #input should be byte, so convert the text to byte
-        encrypted_text = cipher_suite.encrypt(txt.encode('ascii'))
-        # encode to urlsafe base64 format
-        self.encrypted_pwd = base64.urlsafe_b64encode(encrypted_text).decode("ascii")            
-        return self.encrypted_pwd 
-
-    def decrypt(self,encrypted_text):
-        txt = base64.urlsafe_b64decode(encrypted_text)
-        cipher_suite = Fernet(self.key)
-        decoded_text = cipher_suite.decrypt(txt).decode("ascii")
-        return decoded_text
+    def __init__(self, key): 
+        self.bs = AES.block_size
+        self.key = hashlib.sha256(key.encode()).digest()
 
 
+    def decrypt(self, encrypted_text):
+        enc = base64.b64decode(encrypted_text)
+        iv = enc[:AES.block_size]
+        cipher = AES.new(self.key, AES.MODE_GCM, iv)
+        decrypted_text = self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+        return self._unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+
+    
+    
+    @staticmethod
+    def _unpad(s):
+        return s[:-ord(s[len(s)-1:])]
+
+
+  
