@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import socket
 from decouple import config
-from SampleProject.encryption import *
+from encryption import *
 #from azure.keyvault.secrets import SecretClient
 #from azure.identity import DefaultAzureCredential
 
@@ -38,7 +38,7 @@ SESSION_COOKIE_AGE= 100
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
