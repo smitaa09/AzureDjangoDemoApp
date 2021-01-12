@@ -117,7 +117,7 @@ DATABASES = {
         'PASSWORD':'Tcsmfg@1234#',
         'PORT':config('PORT'),
         'OPTIONS': {            
-            'driver': 'ODBC Driver 13 for SQL Server',
+            'driver': 'SQL Server Native Client 11.0',
             'MARS_Connection': 'True',
             }
     }
