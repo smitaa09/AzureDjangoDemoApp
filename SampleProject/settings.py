@@ -29,9 +29,9 @@ SECRET_KEY = "&dfw0b_0r^swa80@x^_9eq=p+%vr&-*9&q_(_o1$uqlbsvcbyj"
 DB_PWD= b'JidpljAPURzAk/4UkR3eoOjCLbkbwe5Rpuhufp+Rewg='
 USER=  b'JGQ1Ni2/cFxalBkJKdwlpQye8gK/+qYtRUoCjqL599A='
 
-crypt= CryptKey(SECRET_KEY)
-DB_PWD= crypt.decrypt(DB_PWD)
-USER= crypt.decrypt(USER)
+#crypt= CryptKey(SECRET_KEY)
+#DB_PWD= crypt.decrypt(DB_PWD)
+#USER= crypt.decrypt(USER)
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
 SESSION_COOKIE_AGE= 100
@@ -114,7 +114,7 @@ DATABASES = {
         'HOST':config('HOST'),
         'NAME':config('NAME'),
         'USER':'labsqladmin',
-        'PASSWORD':DB_PWD,
+        'PASSWORD':'Tcsmfg@1234#',
         'PORT':config('PORT'),
         'OPTIONS': {            
             'driver': 'SQL Server Native Client 11.0',
