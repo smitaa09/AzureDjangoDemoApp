@@ -12,3 +12,4 @@ python-decouple==3.3
 pycryptodome==3.9.9
 django-mssql-backend==2.8.1
 python-dateutil==2.8.1
+django-pyodbc==1.1.3
