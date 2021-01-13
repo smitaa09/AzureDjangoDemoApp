@@ -111,11 +111,11 @@ WSGI_APPLICATION = 'SampleProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'HOST':config('HOST'),
+        'HOST':'labsqlserver.database.windows.net',
         'NAME':config('NAME'),
         'USER':'labsqladmin',
         'PASSWORD':'Tcsmfg@1234#',
-        'PORT':config('PORT'),
+        'PORT':'1433',
         'OPTIONS': {            
             'driver': 'ODBC Driver 17 for SQL Server',
             'MARS_Connection': 'True',
