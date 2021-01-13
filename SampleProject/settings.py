@@ -111,7 +111,7 @@ WSGI_APPLICATION = 'SampleProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'HOST':'labsqlserver.database.windows.net',
+        'HOST':config('HOST'),
         'NAME':'HON-AION-QA',
         'USER':'labsqladmin',
         'PASSWORD':'Tcsmfg@1234#',
