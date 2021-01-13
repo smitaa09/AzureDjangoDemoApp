@@ -112,10 +112,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'HOST':config('HOST'),
-        'NAME':'HON-AION-QA',
+        'NAME':config('NAME'),
         'USER':'labsqladmin',
         'PASSWORD':'Tcsmfg@1234#',
-        'PORT':'1433',
+        'PORT':config('PORT'),
         'OPTIONS': {            
             'driver': 'ODBC Driver 17 for SQL Server',
             'MARS_Connection': 'True',
