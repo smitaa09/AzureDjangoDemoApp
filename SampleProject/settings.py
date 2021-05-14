@@ -83,6 +83,8 @@ ROOT_URLCONF = 'SampleProject.urls'
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    
     
 )
 
