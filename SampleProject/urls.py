@@ -36,11 +36,16 @@ urlpatterns = [
     path('api/aion/aion-training', views.save_training),    
     path('api/aion/user-logout', views.logout),
     path('api/aion/user-log_feedback', views.log_feedback),
-    path('api/aion/user-register', views.register),    
+    #path('api/aion/user-register', views.register),    
     path('api/aion/user-customerdetails', views.get_customer_six_month_details),
     path('api/aion/user-supportfocaldetails', views.get_supportfocal_six_month_details),
-	
-    
+    path('api/aion/glossary', views.save_glossary),
+    path('api/aion/ticket-prediction', views.ticket_prediction),
+    path('api/aion/result_for_domain', views.domain_prediction),
+    path('api/aion/result_for_app', views.app_prediction),
+    path('api/aion/domain_data', views.domain_data),
+    path('registerpage', views.registerPage),
+    path('modeltraining', views.bm25model_training)
 ]
 
 

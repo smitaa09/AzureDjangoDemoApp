@@ -34,7 +34,7 @@ DB_PWD= crypt.decrypt(DB_PWD)
 USER= crypt.decrypt(USER)
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE= True
-SESSION_COOKIE_AGE= 100
+SESSION_COOKIE_AGE= 1000
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -51,7 +51,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 DEBUG = config('Debug')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','10.1.0.4','192.168.1.10']
 
 # Application definition
 
@@ -119,7 +119,7 @@ DATABASES = {
         'PASSWORD':DB_PWD,
         'PORT':'1433',
         'OPTIONS': {            
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'SQL Server Native Client 11.0',
             'MARS_Connection': 'True',
             }
     }
@@ -165,9 +165,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'MyApp/static')
-    ]
+#STATICFILES_DIRS=[  os.path.join(BASE_DIR,'MyApp/static')    ]
 CORS_ORIGIN_ALLOW_ALL = True
 
 
